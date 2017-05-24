@@ -1,8 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-
+.idea/
 builds/
-.credentials/sheets.googleapis.com-ferique-scraper.json
+.credentials/
+site-packages/
 
 ### Python template
 # Byte-compiled / optimized / DLL files
