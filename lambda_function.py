@@ -21,7 +21,11 @@ def lambda_handler(event=None, context=None):
         os.mkdir('/tmp/.credentials')
     except FileExistsError as e:
         pass
-    shutil.copy('./.credentials/{}'.format(cred_file_name), '/tmp/.credentials/{}'.format(cred_file_name))
+
+    try:
+        shutil.copy('./.credentials/{}'.format(cred_file_name), '/tmp/.credentials/{}'.format(cred_file_name))
+    except FileNotFoundError as e:
+        pass
 
     scraper = FeriqueScraper(reer_id, celi_id)
     scraper.authenticate(uname, pwd)

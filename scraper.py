@@ -4,7 +4,7 @@ import calendar
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://client.ferique.com/"
-
+DOM_IDENTIFIER_TEMPLATE = 'pnlAccount_{}'
 
 class FeriqueTable:
 
@@ -22,7 +22,7 @@ class FeriqueTable:
             self.table = self.dom
 
     def __table_by_account_id(self):
-        tables = self.dom.find_all(id='accordion_{}'.format(self.account_id))
+        tables = self.dom.find_all(id=DOM_IDENTIFIER_TEMPLATE.format(self.account_id))
         if len(tables) == 0:
             return None
         else:
@@ -122,14 +122,10 @@ class FeriqueScraper:
         celi_risks_dom = self.__get_dom(self.CELI_RISKS)
         self.celi_risks = FeriqueTable(celi_risks_dom, self.celiId, len_static_headers)
 
-
-
     def __get_dom(self, endpoint):
         url = self.__build_url(endpoint)
         r = requests.get(url, cookies=self.cookies)
         return BeautifulSoup(r.text, 'html.parser')
-
-
 
     def __set_table_maps(self):
         self.title2code = {
